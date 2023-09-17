@@ -1,0 +1,33 @@
+<zk>
+	<window apply="system.PageComposer" width="1276px" border="none" height="862px" position="center" mode="overlapped" sclass="page">
+		<borderlayout>
+			<north height="80px" border="none">
+				<hlayout>
+					<vlayout hflex="5">
+						<image id="imgLogo" />
+					</vlayout>
+					<vlayout hflex="2" style="text-align: right;">
+						<label id="boxCompany" style="padding: 5px;" />
+						<hlayout>
+							<menubar autodrop="false" style="background: #ffffff; border: 0">
+								<menu id="boxUser">
+									<menupopup>
+										<menuitem id="mnuLogout" label="${message(code:'default.button.logout.label')}" iconSclass="z-icon-sign-out" />
+									</menupopup>
+								</menu>
+							</menubar>
+						</hlayout>
+					</vlayout>
+				</hlayout>
+			</north>
+			<center autoscroll="true" border="none">
+				<include id="include" mode="instant" />
+			</center>
+			<south border="none">
+				<hlayout height="20px">
+					<label id="boxStatus" />
+				</hlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

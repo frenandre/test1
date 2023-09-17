@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language-addon>
+	<addon-name>asmb</addon-name>
+	<language-name>xul/html</language-name>
+
+	<component>
+		<component-name>domaincombobox</component-name>
+		<extends>combobox</extends>
+        <component-class>system.DomainCombobox</component-class>
+ 	</component>
+
+</language-addon>

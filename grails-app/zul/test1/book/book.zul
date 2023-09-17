@@ -1,0 +1,33 @@
+<zk>
+	<window apply="test1.book.BookEditComposer" border="none" width="100%" height="100%" forward="onOK=btnSaveAndClose.onClick">
+		<borderlayout>
+			<center border="normal" autoscroll="true">
+				<vlayout>
+					<grid>
+						<columns>
+							<column width="110px" />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								${message(code:'book.title.label')}
+								<textbox id="boxTitle" />
+							</row>
+							<row>
+								${message(code:'book.author.label')}
+								<domaincombobox id="boxAuthor" domainName="test1.Author" domainProperty="name" min="3" autocomplete="true" />
+							</row>
+						</rows>
+					</grid>
+				</vlayout>
+			</center>
+			<south border="none">
+				<hlayout>
+					<button id="btnSaveAndClose" label="${message(code:'default.button.save.label')}" iconSclass="z-icon-floppy-o" />
+					<button id="btnDelete" label="${message(code:'default.button.delete.label')}" iconSclass="z-icon-trash-o" />
+					<button id="btnCancel" label="${message(code:'default.button.cancel.label')}" iconSclass="z-icon-undo" forward="onCancel" />
+				</hlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

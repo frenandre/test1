@@ -1,0 +1,44 @@
+<zk>
+	<window apply="test1.author.AuthorListComposer" border="none" width="700px" forward="onOK=onSelect">
+		<vlayout>
+			<menubar width="100%" autodrop="true">
+				<menuitem label="${message(code:'default.button.add.label')}" iconSclass="z-icon-plus-square-o" forward="onAdd" />
+			</menubar>
+			<listbox id="lst" height="580px">
+				<listhead>
+					<listheader width="25px">
+						<a id="btnRefresh" iconSclass="z-icon-refresh" tooltiptext="${message(code:'default.button.refresh.list')}" />
+					</listheader>
+					<listheader label="${message(code:'author.id.label')}" value="id" width="60px" style="text-align: center" sort="auto" />
+					<listheader label="${message(code:'author.name.label')}" value="name" sort="auto" />
+					<listheader label="${message(code:'author.year.label')}" value="year" width="80px" style="text-align: center" sort="auto" />
+				</listhead>
+				<auxhead>
+					<auxheader tooltiptext="${message(code:'default.button.clear.filter')}">
+						<a id="btnClearFilter" iconSclass="z-icon-eraser" />
+					</auxheader>
+					<auxheader>
+						<longbox hflex="1" name="id" />
+					</auxheader>
+					<auxheader>
+						<textbox hflex="1" name="name" />
+					</auxheader>
+					<auxheader>
+						<intbox hflex="1" name="year" />
+					</auxheader>
+				</auxhead>
+				<template name="model">
+					<listitem value="#{each.id}" forward="onDoubleClick=onSelect">
+						<listcell tooltiptext="${message(code:'default.button.refresh.list')}">
+							<a iconSclass="z-icon-pencil-square-o" forward="onSelect" />
+						</listcell>
+						<listcell label="#{each.id}" style="text-align: center" />
+						<listcell label="#{each.name}" style="white-space: nowrap;" />
+						<listcell label="#{each.year}" style="text-align: center" />
+					</listitem>
+				</template>
+			</listbox>
+			<paging id="pgn" pageSize="15" />
+		</vlayout>
+	</window>
+</zk>

@@ -1,0 +1,16 @@
+
+.z-window.z-window-noborder.z-window-embedded { background-color: #fff; }
+.z-caption { padding: 0 2px; }
+
+.page .z-north { padding: 6px; }
+
+.popup.z-window { background: #fff;}
+.popup .z-window-header { padding: 0 2px !important; }
+
+.popup .z-center { padding: 0px; }
+.popup .z-south { padding: 6px 1px 0 1px; }
+
+.panel > .z-window-content { padding: 0; }
+
+.z-a i { color: #000; }
+.z-menuitem-content i { margin-right: 6px; }

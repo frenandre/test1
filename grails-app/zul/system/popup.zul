@@ -1,0 +1,13 @@
+<zk>
+	<window apply="system.PopupComposer" width="750px" height="550px" sclass="popup" closable="true">
+		<caption />
+		<borderlayout>
+			<center autoscroll="true" border="none">
+				<include id="include" mode="instant" />
+			</center>
+			<south border="none">
+				<vlayout height="24px" style="padding: 5px 0"><label id="boxStatus" /></vlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

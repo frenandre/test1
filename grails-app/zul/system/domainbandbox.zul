@@ -1,0 +1,42 @@
+<zk>
+	<bandpopup height="275px" width="565px">
+		<tabbox id="mc_tbx" height="100%" visible="false">
+			<tabs>
+				<tab id="mc_tab1" label="Suchergebnis" visible="false" />
+				<tab id="mc_tab2" label="Erweiterte Suche" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<listbox id="mc_lst" height="230px" forward="onSelect=onSelect" />
+				</tabpanel>
+				<tabpanel>
+					<vlayout height="94%">
+						<grid>
+							<columns>
+								<column width="120px" />
+								<column />
+							</columns>
+							<rows>
+								<row>
+									Beschreibung
+									<hlayout>
+										<textbox id="mc_search_name" width="120px" />
+									</hlayout>
+								</row>
+								<row>
+									Id
+									<longbox id="mc_search_id" width="120px" />
+								</row>
+							</rows>
+						</grid>
+						<hlayout>
+							<button label="Suche" forward="onClick=onSearch" />
+							<button label="Abbrechen" forward="onClick=onCancel" />
+						</hlayout>
+					</vlayout>
+					<label id="mc_status" />
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</bandpopup>
+</zk>

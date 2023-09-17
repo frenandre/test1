@@ -1,0 +1,45 @@
+<zk>
+	<window apply="test1.author.AuthorEditComposer" border="none" width="100%" height="100%" forward="onOK=btnSaveAndClose.onClick">
+		<borderlayout>
+			<z:center>
+				<grid>
+					<columns>
+						<column width="110px" />
+						<column />
+					</columns>
+					<rows>
+						<row>
+							${message(code:'author.name.label')}
+							<textbox id="boxName" />
+						</row>
+						<row>
+							${message(code:'author.year.label')}
+							<intbox id="boxYear" />
+						</row>
+					</rows>
+				</grid>
+				<listbox id="lstBooks">
+					<listhead hflex="1">
+						<listheader width="25px" tooltiptext="add book">
+							<a iconSclass="z-icon-plus-square-o" forward="onAdd" />
+						</listheader>
+						<listheader label="${message(code:'book.list')}" sort="auto" />
+					</listhead>
+					<template name="model">
+						<listitem value="#{each}" forward="onDoubleClick=onEdit">
+							<listcell tooltiptext="edit book">
+								<a iconSclass="z-icon-pencil-square-o" forward="onEdit" />
+							</listcell>
+							<listcell label="#{each.title}" style="white-space: nowrap;" />
+						</listitem>
+					</template>
+				</listbox>
+			</z:center>
+			<z:south>
+				<z:button id="btnSaveAndClose" label="default.button.save.label" icon="floppy-o" />
+				<z:button id="btnDelete" label="default.button.delete.label" icon="trash-o" />
+				<z:button id="btnCancel" label="default.button.cancel.label" icon="undo" forward="onCancel" />
+			</z:south>
+		</borderlayout>
+	</window>
+</zk>

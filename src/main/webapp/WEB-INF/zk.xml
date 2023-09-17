@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <language-config>
+        <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
+    </language-config>
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>silvertail</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.web.preferred.locale</name>
+		<value>de</value>
+	</library-property>
+	<desktop-config>
+		<theme-uri>/static/css/zk.css</theme-uri>
+	</desktop-config>
+</zk>

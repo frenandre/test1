@@ -1,0 +1,29 @@
+<zk>
+	<window apply="test1.author.AuthorBookComposer" border="none" width="100%" height="100%" forward="onOK=btnSaveAndClose.onClick">
+		<borderlayout>
+			<z:center>
+				<grid>
+					<columns>
+						<column width="110px" />
+						<column />
+					</columns>
+					<rows>
+						<row>
+							${message(code:'author.label')}
+							<textbox id="boxAuthor" readonly="true" />
+						</row>
+						<row>
+							${message(code:'book.title.label')}
+							<textbox id="boxTitle" focus="true" />
+						</row>
+					</rows>
+				</grid>
+			</z:center>
+			<z:south>
+				<z:button id="btnOK" label="default.button.confirm.label" icon="check-square-o" />
+				<z:button id="btnRemove" label="default.button.remove.label" icon="minus-square-o" />
+				<z:button id="btnCancel" label="default.button.cancel.label" icon="undo" forward="onCancel" />
+			</z:south>
+		</borderlayout>
+	</window>
+</zk>
