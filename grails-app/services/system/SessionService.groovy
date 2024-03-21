@@ -52,7 +52,7 @@ class SessionService {
 	}
 
 	String getCompanyLogo(String code = null) {
-		return getCompany(code).logo ?: 'logo.gif'
+		return getCompany(code).logo ?: 'logo.svg'
 	}
 
 	boolean isAllowed(String company, String app, String path) {

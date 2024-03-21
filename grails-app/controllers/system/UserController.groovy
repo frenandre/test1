@@ -1,99 +1,138 @@
 package system
 
-import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
+
+import grails.validation.ValidationException
 
 class UserController {
 
-    UserService userService
+	UserService userService
+	RoleService roleService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond userService.list(params), model:[userCount: userService.count()]
-    }
+	def index(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		respond userService.list(params), model:[userCount: userService.count()]
+	}
 
-    def show(Long id) {
-        respond userService.get(id)
-    }
+	def show(Long id) {
+		respond userService.get(id)
+	}
 
-    def create() {
-        respond new User(params)
-    }
+	def create() {
+		respond new User(params)
+	}
 
-    def save(User user) {
-        if (user == null) {
-            notFound()
-            return
-        }
+	def save(User user) {
+		if (user == null) {
+			notFound()
+			return
+		}
 
-        try {
-            userService.save(user)
-        } catch (ValidationException e) {
-            respond user.errors, view:'create'
-            return
-        }
+		try {
+			userService.save(user)
+		} catch (ValidationException e) {
+			respond user.errors, view:'create'
+			return
+		}
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
-            }
-            '*' { respond user, [status: CREATED] }
-        }
-    }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.created.message', args: [
+					message(code: 'user.label', default: 'User'),
+					user.id
+				])
+				redirect user
+			}
+			'*' { respond user, [status: CREATED] }
+		}
+	}
 
-    def edit(Long id) {
-        respond userService.get(id)
-    }
+	def edit(Long id) {
+		respond userService.get(id)
+	}
 
-    def update(User user) {
-        if (user == null) {
-            notFound()
-            return
-        }
+	def update(User user) {
+		if (user == null) {
+			notFound()
+			return
+		}
 
-        try {
-            userService.save(user)
-        } catch (ValidationException e) {
-            respond user.errors, view:'edit'
-            return
-        }
+		try {
+			userService.save(user)
+		} catch (ValidationException e) {
+			respond user.errors, view:'edit'
+			return
+		}
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
-            }
-            '*'{ respond user, [status: OK] }
-        }
-    }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.updated.message', args: [
+					message(code: 'user.label', default: 'User'),
+					user.id
+				])
+				redirect user
+			}
+			'*'{ respond user, [status: OK] }
+		}
+	}
 
-    def delete(Long id) {
-        if (id == null) {
-            notFound()
-            return
-        }
+	def delete(Long id) {
+		if (id == null) {
+			notFound()
+			return
+		}
 
-        userService.delete(id)
+		userService.delete(id)
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.deleted.message', args: [
+					message(code: 'user.label', default: 'User'),
+					id
+				])
+				redirect action:"index", method:"GET"
+			}
+			'*'{ render status: NO_CONTENT }
+		}
+	}
 
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [
+					message(code: 'user.label', default: 'User'),
+					params.id
+				])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
+		}
+	}
+
+	def rolesEdit() {
+		def userInstance = User.get(params.id)
+		if (userInstance) {
+			def roles = roleService.list(sort: 'authority')
+			def auths = userInstance.authorities ?: []
+			return [userInstance: userInstance, auths: auths, roles: roles]
+		}
+	}
+
+	def rolesSave() {
+		def userInstance = User.read(params.id)
+		userInstance.withTransaction {
+			if (userInstance) {
+				UserRole.removeAll(userInstance)
+				params.each { key, value ->
+					if (key.startsWith('ROLE') && value == 'on') {
+						def roleInstance = Role.read(new Long(key.substring(4)))
+						if (roleInstance) UserRole.create(userInstance, roleInstance, true)
+					}
+				}
+				redirect userInstance
+			}
+		}
+	}
 }

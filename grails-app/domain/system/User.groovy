@@ -10,7 +10,6 @@ class User implements Serializable {
 	Company company
 	String username
 	String password = 'secret'
-	String description
 	String firstName
 	String lastName
 	String email
@@ -26,11 +25,11 @@ class User implements Serializable {
 	static constraints = {
 		company nullable: false
 		username blank: false, unique: true
-		password blank: false, display: false
+		password nullable: true, display: false
 		email nullable: true
 		sapId nullable: true, maxSize: 20
 		firstName nullable: false, maxSize: 50
-		lastName nullable: false, maxSize: 50
+		lastName nullable: true, maxSize: 50
 		cmdbUserId nullable: true
 	}
 
@@ -48,9 +47,8 @@ class User implements Serializable {
 		UserRole.findAllByUser(this).collect { it.role } as Set
 	}
 
-	String getEmailAddress() {
-		String address = email ?: "${username}@zimbra.site"
-		return "${description} <${address}>"
+	String getDescription() {
+		"${firstName ?:''} ${lastName ?:''}".trim()
 	}
 
 	String toString() {

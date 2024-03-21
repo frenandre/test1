@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 class LogoutController {
 
 	def index = {
-		session.invalidate()
+		request.logout()
 		redirect uri: SpringSecurityUtils.securityConfig.logout.filterProcessesUrl
 	}
 }

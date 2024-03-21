@@ -39,8 +39,8 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
 //logger 'org.springframework.security', DEBUG, ['STDOUT'], false
 //logger 'grails.plugin.springsecurity', DEBUG, ['STDOUT'], false
 
-logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE, ['STDOUT'], false
-logger 'org.hibernate.engine.transaction.internal.TransactionImpl', TRACE, ['STDOUT'], false
-logger 'org.hibernate.SQL', TRACE, ['STDOUT'], false
+//logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE, ['STDOUT'], false
+//logger 'org.hibernate.engine.transaction.internal.TransactionImpl', TRACE, ['STDOUT'], false
+//logger 'org.hibernate.SQL', TRACE, ['STDOUT'], false
 
 root(ERROR, ['STDOUT'])

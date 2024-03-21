@@ -4,7 +4,7 @@
 			<north height="80px" border="none">
 				<hlayout>
 					<vlayout hflex="5">
-						<image id="imgLogo" />
+						<image id="imgLogo" height="60px" />
 					</vlayout>
 					<vlayout hflex="2" style="text-align: right;">
 						<label id="boxCompany" style="padding: 5px;" />

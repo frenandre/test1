@@ -29,13 +29,16 @@ abstract class ListComposer<T, S> extends DomainComposer<T, S> {
 		redraw()
 	}
 
-	@Listen("onPaging = #pgn")
-	void onPaging() {
+	@Listen("onPaging = #pgn; onClick = #btnRefresh")
+	void refreshList(Event evt) {
 		redraw()
+		if (evt.target.id == 'btnRefresh') {
+			showNotification(l('list.refreshed.info'))
+		}
 	}
 
 	@Listen("onSort = listheader")
-	void onSort(SortEvent evt) {
+	void sortList(SortEvent evt) {
 		evt.stopPropagation()
 		sort = evt.target.value
 		order = evt.target.sortDirection == 'ascending' ? 'desc' : 'asc'
@@ -43,31 +46,42 @@ abstract class ListComposer<T, S> extends DomainComposer<T, S> {
 		redraw()
 	}
 
-	@Listen("onChange = auxheader *; onSelect = auxheader *")
-	void onFilterSet(Event evt) {
-		filterValues[evt.target.name] = (evt.target instanceof Combobox) ? evt.target.selectedItem?.value : evt.target.value
-	}
-
-	@Listen("onOK = auxheader *")
-	void onFilterOK(Event evt) {
-		pgn.activePage = 0
-		redraw()
-	}
-
-	@Listen("onClick = #btnRefresh")
-	void onRefresh() {
-		redraw()
-		showNotification(l('info.list.refreshed'))
+	@Listen("onOK = auxheader *; onChange = auxheader *")
+	void changeListFilter(Event evt) {
+		if (evt.name == 'onChange') {
+			def name = evt.target.name
+			def value = evt.target instanceof Combobox ?  evt.target.selectedItem?.value : evt.target.value
+			def changed = false
+			if (value) {
+				if (filterValues[name] != value) {
+					filterValues[name] = value
+					changed = true
+				}
+			} else {
+				if (filterValues.containsKey(name)) {
+					filterValues.remove(name)
+					changed = true
+				}
+			}
+			if (changed) {
+				pgn.activePage = 0
+				redraw()
+			}
+		}
 	}
 
 	@Listen("onClick = #btnClearFilter")
-	void onClearFilter() {
-		$('auxheader > *').each {
-			if (it.hasProperty('value')) it.value = null
+	void clearListFilter() {
+		if (filterValues != [:]) {
+			$('auxheader > *').each {
+				if (it.hasProperty('name') && it.value) {
+					it.value = null
+					filterValues.remove(it.name)
+				}
+			}
+			pgn.activePage = 0
+			redraw()
 		}
-		filterValues = [:]
-		pgn.activePage = 0
-		redraw()
 	}
 
 	void redraw() {

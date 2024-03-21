@@ -1,7 +1,5 @@
 package test1
 
-import system.Company
-
 class InitController {
 
 	def author() {
